@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My webpage</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <div class="">
+      <select class="color" name="Color">
+        <option value="black">black</option>
+        <option value="red">red</option>
+        <option value="green">green</option>
+        <option value="blue">blue</option>
+        <option value="white">white</option>
+      </select>
+      <select class="thickness" name="Thickness">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option>
+      </select>
+    </div>
+    <svg>
+    </svg>
+  </body>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      const svg = d3.select('svg')
+      .attr('height', window.innerHeight)
+      .attr('width', window.innerWidth);
+
+      let drawing = false;
+      var temp = [];
+
+      svg.on('mousemove', function() {
+        const coords = d3.mouse(this);
+        draw(coords, true);
+      });
+
+      svg.on('mouseup', function() {
+        drawing = false;
+      });
+
+      svg.on('mousedown', function() {
+        drawing = true;
+        const coords = d3.mouse(this);
+        draw(coords, false);
+      });
+
+      function draw(coords, indicator) {
+        const color = document.querySelector('.color').value;
+        const thickness = document.querySelector('.thickness').value;
+
+        if (drawing === true) {
+          //const coords = d3.mouse(this);
+          //d3.mouse(this) returns an array containing x-coordinates and y-coordinates
+
+          svg.append('circle')
+          .attr('cx', coords[0])
+          .attr('cy', coords[1])
+          .attr('r', thickness)
+          .style('fill', color);
+
+          if (indicator === true) {
+            svg.append('line')
+            .attr('x1', coords[0])
+            .attr('y1', coords[1])
+            .attr('x2', temp[0])
+            .attr('y2', temp[1])
+            .style('stroke', color)
+            .style('stroke-width', thickness * 2);
+          }
+
+          temp[0] = coords[0];
+          temp[1] = coords[1];
+        }
+      }
+    });
+  </script>
+</html>

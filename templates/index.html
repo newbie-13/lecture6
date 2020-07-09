@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+      function load_page(name){
+        const request = new XMLHttpRequest();
+        request.open('GET', `/${name}`);
+        request.onload = function() {
+          const response = request.responseText;
+          document.querySelector('h1').innerHTML = response;
+
+          document.title = name;
+          history.pushState({'title': name, 'text': response}, name, name);
+          //modify URL without reloading the page
+        };
+        request.send();
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        load_page('first');
+        document.querySelectorAll('a').forEach(link => {
+          link.onclick = function() {
+            load_page(link.dataset.page);
+            return false;
+          };
+        });
+      });
+
+      window.onpopstate = e =>{
+        const data = e.state;
+        document.title = data.title;
+        document.querySelector('h1').innerHTML = data.text;
+      };
+    </script>
+    <title>My webpage</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="" data-page="first">First page</a></li>
+      <li><a href="" data-page="second">Second page</a></li>
+      <li><a href="" data-page="third">Third page</a></li>
+    </ul>
+    <hr>
+    <h1></h1>
+  </body>
+</html>

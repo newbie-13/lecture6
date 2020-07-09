@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My webpage</title>
+    <style media="screen">
+      img{
+        height: 50px
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script type="text/javascript">
+      const template = Handlebars.compile("<li>You have rolled :<img src=\"img/{{ value }}.png\"></li>");
+
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('button').onclick = function() {
+          const roll = Math.floor((Math.random() * 6) + 1);
+          const content = template({'value': roll});
+          document.querySelector('ul').innerHTML += content;
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <button type="button" name="button">Roll</button>
+    <hr>
+    <ul>
+
+    </ul>
+  </body>
+</html>

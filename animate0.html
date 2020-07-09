@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My webpage</title>
+    <style media="screen">
+      @keyframes grow {
+        from {
+          font-size: 20px;
+        }
+        to {
+          font-size: 100px;
+        }
+      }
+
+      @keyframes move {
+        0% {
+          left: 0%;
+        }
+        50% {
+          left: 100%;
+        }
+        100% {
+          left: 0%;
+        }
+      }
+/*
+      h1 {
+        animation-name: grow;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+      }
+*/
+      h1 {
+        position: relative;
+        animation-name: move;
+        animation-duration: 12s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+      }
+    </style>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        const h1 = document.querySelector('h1');
+        h1.style.animationPlayState = 'paused';
+        document.querySelector('button').onclick = function() {
+          if (h1.style.animationPlayState === 'paused') {
+            h1.style.animationPlayState = 'running';
+          }
+          else {
+            h1.style.animationPlayState = 'paused';
+          }
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <h1>Fuck You!</h1>
+    <button type="button" name="button">Click me to fuck you</button>
+  </body>
+</html>
